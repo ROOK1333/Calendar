@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backtesting Calendar</title>
+    <style>
+        .calendar-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+        }
+        .day {
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            background-color: #f9f9f9;
+        }
+        .day:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Backtesting Journal - March 2025</h1>
+    <div id="calendar" class="calendar-list"></div>
+
+    <script>
+        // Function to generate days for March 2025
+        function generateCalendar() {
+            const calendarDiv = document.getElementById('calendar');
+            const startDate = new Date('2025-03-01');
+            const daysInMonth = 31; // March has 31 days
+
+            for (let i = 0; i < daysInMonth; i++) {
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+                
+                // Format date as "Tue 2 Mar 2025"
+                const dayName = currentDate.toLocaleString('en-US', { weekday: 'short' });
+                const dayNum = currentDate.getDate();
+                const monthName = currentDate.toLocaleString('en-US', { month: 'short' });
+                const year = currentDate.getFullYear();
+                const dateString = `${dayName} ${dayNum} ${monthName} ${year}`;
+
+                // Create clickable day element
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'day';
+                dayDiv.textContent = dateString;
+                dayDiv.onclick = () => {
+                    // Placeholder for clicking action
+                    alert(`Clicked: ${dateString}. Add your backtest data here!`);
+                    // You could redirect or open a form here
+                };
+                calendarDiv.appendChild(dayDiv);
+            }
+        }
+
+        // Run the function on page load
+        window.onload = generateCalendar;
+    </script>
+</body>
+</html>
