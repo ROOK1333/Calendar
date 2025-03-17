@@ -5,20 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backtesting Calendar</title>
     <style>
-        .calendar-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
             padding: 20px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .calendar-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            max-width: 100%;
+            margin: 0 auto;
         }
         .day {
-            padding: 10px;
-            border: 1px solid #ccc;
+            background-color: #ffffff;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            background-color: #f9f9f9;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #34495e;
         }
         .day:hover {
-            background-color: #e0e0e0;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background-color: #3498db;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .calendar-list {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+            .day {
+                padding: 10px;
+                font-size: 0.85em;
+            }
         }
     </style>
 </head>
@@ -27,37 +59,29 @@
     <div id="calendar" class="calendar-list"></div>
 
     <script>
-        // Function to generate days for March 2025
         function generateCalendar() {
             const calendarDiv = document.getElementById('calendar');
             const startDate = new Date('2025-03-01');
-            const daysInMonth = 31; // March has 31 days
+            const daysInMonth = 31;
 
             for (let i = 0; i < daysInMonth; i++) {
                 const currentDate = new Date(startDate);
                 currentDate.setDate(startDate.getDate() + i);
-                
-                // Format date as "Tue 2 Mar 2025"
                 const dayName = currentDate.toLocaleString('en-US', { weekday: 'short' });
                 const dayNum = currentDate.getDate();
                 const monthName = currentDate.toLocaleString('en-US', { month: 'short' });
                 const year = currentDate.getFullYear();
                 const dateString = `${dayName} ${dayNum} ${monthName} ${year}`;
 
-                // Create clickable day element
                 const dayDiv = document.createElement('div');
                 dayDiv.className = 'day';
                 dayDiv.textContent = dateString;
                 dayDiv.onclick = () => {
-                    // Placeholder for clicking action
                     alert(`Clicked: ${dateString}. Add your backtest data here!`);
-                    // You could redirect or open a form here
                 };
                 calendarDiv.appendChild(dayDiv);
             }
         }
-
-        // Run the function on page load
         window.onload = generateCalendar;
     </script>
 </body>
